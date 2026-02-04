@@ -51,7 +51,7 @@ If I had 48 more hours, I would implement:
 
 1. Clone the repo:
    ```bash
-   git clone [https://github.com/yourusername/movied.git](https://github.com/yourusername/movied.git)
+   git clone [https://github.com/shan-n/movied.git](https://github.com/shan-n/movied.git)
 
 ```
 
