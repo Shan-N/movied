@@ -56,7 +56,7 @@ export const MovieCard = ({ movie }: { movie: Movie }) => {
         {movie.posterPath ? (
           <Image
             src={movie.posterPath}
-            alt={movie.title}
+            alt={movie.title || 'Movie Poster'}
             fill
             sizes="(max-width: 768px) 33vw, (max-width: 1200px) 20vw, 15vw"
             className="object-cover"

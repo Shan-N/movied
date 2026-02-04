@@ -60,7 +60,6 @@ export default async function LandingPage() {
 
       <main className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-4 gap-16">
         
-        {/* MAIN FEED */}
         <div className="lg:col-span-3 space-y-20">
           <section aria-label="Trending Movies">
             <div className="flex justify-between items-end mb-10 border-b border-gray-300 dark:border-[#2c3440] pb-4">
