@@ -66,8 +66,7 @@ export default function MoviePage({ params }: PageProps) {
     "image": posterUrl,
     "description": data?.overview,
     "datePublished": data?.release_date,
-    "director": data?.credits?.crew?.filter((member: any) => member.job === "Director").map((director: any) => director.name),
-    "actor": data?.credits?.cast?.slice(0, 5).map((actor: any) => actor.name),
+    "actor": data?.credits?.cast?.slice(0, 5).map((actor: Member) => actor.name),
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": data?.vote_average,

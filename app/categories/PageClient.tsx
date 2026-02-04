@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useLayoutEffect, useRef, useMemo } from "react";
+import { useState, useLayoutEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCategories, getMoviesByCategory } from "@/lib/tmdb";
 import { Navbar } from "@/components/Navbar";

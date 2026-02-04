@@ -1,4 +1,3 @@
-import { use } from 'react';
 import { getDiscoverMovies } from '@/lib/tmdb';
 import { Navbar } from '@/components/Navbar';
 import { MovieCard } from '@/components/MovieCard';
