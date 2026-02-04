@@ -2,7 +2,7 @@
 
 A cinematic discovery platform offering curated lists, real-time search, and a modern, motion-rich interface for film enthusiasts. Inspired by Letterboxd and modern streaming aesthetics.
 
-![Project Preview](public/og-image.jpg) ## 1. Dataset & Source
+## 1. Dataset & Source
 All movie data, images, and person details are sourced from **The Movie Database (TMDB)**.
 * **Source URL:** [https://developer.themoviedb.org/docs](https://developer.themoviedb.org/docs)
 * **Attribution:** This product uses the TMDB API but is not endorsed or certified by TMDB.
