@@ -143,3 +143,17 @@ export async function getDiscoverMovies(params: Record<string, string | number |
 
   return res.json();
 }
+
+export async function getRandomMovie() {
+  const res = await fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', {
+    headers: {
+      Authorization: `Bearer ${TMDB_TOKEN}`,
+      accept: 'application/json',
+    },
+    next: { revalidate: 3600 } // Revalidate every hour (SSG/ISR)
+  });
+  const data = await res.json();
+  const results = data.results;
+  const randomIndex = Math.floor(Math.random() * results.length);
+  return results[randomIndex];
+}

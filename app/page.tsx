@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getPopularMovies, getTopRatedMovies, getUpcomingMovies } from "@/lib/tmdb";
+import { getPopularMovies, getRandomMovie, getTopRatedMovies, getUpcomingMovies } from "@/lib/tmdb";
 import { Navbar } from "@/components/Navbar";
 import { MovieCard } from "@/components/MovieCard";
 import { HeroSection } from "@/components/HeroSection";
@@ -20,16 +20,17 @@ export const metadata: Metadata = {
 };
 
 export default async function LandingPage() {
-  const [popularData, topRatedData, upcomingData] = await Promise.all([
+  const [popularData, topRatedData, upcomingData, randomMovie] = await Promise.all([
     getPopularMovies(),
     getTopRatedMovies(),
     getUpcomingMovies(),
+    getRandomMovie(),
   ]);
 
-  const featured = popularData?.results?.[0];
-  const trending = popularData?.results?.slice(1, 11) || [];
+  const trending = popularData?.results?.slice(0, 10) || [];
   const upcomingList = upcomingData?.results?.slice(0, 5) || [];
   const topRatedList = topRatedData?.results || [];
+
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -56,7 +57,7 @@ export default async function LandingPage() {
       
       <Navbar />
 
-      <HeroSection featured={featured} />
+      <HeroSection featured={randomMovie} />
 
       <main className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-4 gap-16">
         

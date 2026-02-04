@@ -3,10 +3,12 @@ import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import { Play } from "lucide-react";
 import gsap from "gsap";
+import Link from "next/link";
 
 interface FeaturedMovie {
   backdrop_path: string;
   title: string;
+  id: number;
 }
 
 export function HeroSection({ featured }: { featured: FeaturedMovie | null }) {
@@ -52,9 +54,11 @@ export function HeroSection({ featured }: { featured: FeaturedMovie | null }) {
             Track your watchlist and share your taste.
           </p>
           <div className="hero-text flex gap-4">
+            <Link href={`/movie/${featured.id}`}>            
             <button className="bg-gray-900 dark:bg-brand-green text-white dark:text-letterboxd-dark px-8 py-4 rounded-sm font-bold hover:scale-105 transition-transform flex items-center gap-2">
               GET STARTED <Play size={16} />
             </button>
+            </Link>
           </div>
         </div>
       </div>
