@@ -50,10 +50,9 @@ If I had 48 more hours, I would implement:
 ## Installation
 
 1. Clone the repo:
-   ```bash
+```bash
    git clone [https://github.com/shan-n/movied.git](https://github.com/shan-n/movied.git)
-
-
+```
 
 2. Install dependencies:
 ```bash
