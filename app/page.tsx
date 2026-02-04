@@ -20,7 +20,6 @@ export const metadata: Metadata = {
 };
 
 export default async function LandingPage() {
-  // 2. Server-Side Fetching (Parallel for speed)
   const [popularData, topRatedData, upcomingData] = await Promise.all([
     getPopularMovies(),
     getTopRatedMovies(),
@@ -32,7 +31,6 @@ export default async function LandingPage() {
   const upcomingList = upcomingData?.results?.slice(0, 5) || [];
   const topRatedList = topRatedData?.results || [];
 
-  // 3. Structured Data (JSON-LD) for Google
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -67,7 +65,7 @@ export default async function LandingPage() {
           <section aria-label="Trending Movies">
             <div className="flex justify-between items-end mb-10 border-b border-gray-300 dark:border-[#2c3440] pb-4">
               <h2 className="text-xs font-bold tracking-[0.2em] uppercase text-gray-500 dark:text-[#99aabb]">Trending Now</h2>
-              <Link href="/movies/popular" className="text-[10px] font-bold text-gray-900 dark:text-white hover:text-brand-green flex items-center gap-1 transition-colors">
+              <Link href="/categories" className="text-[10px] font-bold text-gray-900 dark:text-white hover:text-brand-green flex items-center gap-1 transition-colors">
                 ALL MOVIES <ChevronRight size={14} />
               </Link>
             </div>
@@ -86,19 +84,38 @@ export default async function LandingPage() {
             </div>
           </section>
 
-          {/* LISTS */}
+          {/* LISTS SECTION - UPDATED */}
           <section aria-label="Curated Lists">
-            <div className="flex items-center gap-2 mb-10 border-b border-gray-300 dark:border-[#2c3440] pb-4">
-              <ListIcon size={16} className="text-brand-green" />
-              <h2 className="text-xs font-bold tracking-[0.2em] uppercase text-gray-900 dark:text-white">Popular Lists</h2>
+            <div className="flex justify-between items-end mb-10 border-b border-gray-300 dark:border-[#2c3440] pb-4">
+              <div className="flex items-center gap-2">
+                <ListIcon size={16} className="text-brand-green" />
+                <h2 className="text-xs font-bold tracking-[0.2em] uppercase text-gray-900 dark:text-white">Popular Lists</h2>
+              </div>
+              <Link href="/lists" className="text-[10px] font-bold text-gray-900 dark:text-white hover:text-brand-green flex items-center gap-1 transition-colors">
+                VIEW ALL <ChevronRight size={14} />
+              </Link>
             </div>
+            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
               {[
-                { name: "Best of the 2020s", movies: topRatedList.slice(0, 3) },
-                { name: "Atmospheric Horror", movies: topRatedList.slice(3, 6) },
-                { name: "Auteur Essentials", movies: topRatedList.slice(6, 9) }
+                { 
+                  id: "best-of-2020s", 
+                  name: "Best of the 2020s",
+                  movies: topRatedList.slice(0, 3) 
+                },
+                { 
+                  id: "atmospheric-horror",
+                  name: "Atmospheric Horror", 
+                  movies: topRatedList.slice(3, 6) 
+                },
+                { 
+                  id: "auteur-essentials", 
+                  name: "Auteur Essentials", 
+                  movies: topRatedList.slice(6, 9) 
+                }
               ].map((list, i) => (
-                <div key={i} className="group cursor-pointer">
+                // Added Link wrapper here
+                <Link href={`/lists/${list.id}`} key={i} className="group cursor-pointer block">
                   <div className="relative h-40 flex items-center justify-center mb-12">
                     {list.movies.map((m: Movie, idx: number) => (
                       <div 
@@ -111,7 +128,6 @@ export default async function LandingPage() {
                           marginTop: idx === 1 ? '-10px' : '0px'
                         }}
                       >
-                         {/* Next/Image for optimization */}
                         <Image
                             src={`https://image.tmdb.org/t/p/w200${m.poster_path}`}
                             alt={m.title}
@@ -128,7 +144,7 @@ export default async function LandingPage() {
                     <span>•</span>
                     <span className="flex items-center gap-1"><Heart size={10} fill="currentColor"/> 4.2k</span>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </section>

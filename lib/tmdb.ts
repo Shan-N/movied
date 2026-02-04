@@ -77,6 +77,7 @@ export async function getMoviesByActor(name: string) {
   return {
     person: person, // This contains profile_path
     results: creditsData.cast, // This contains the FULL list of movies
+
   };
 }
 
@@ -108,5 +109,37 @@ export async function getMoviesByCategory(genreId: number) {
       headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}` }
     }
   );
+  return res.json();
+}
+
+
+export async function getDiscoverMovies(params: Record<string, string | number | boolean | undefined>) {
+  const urlParams = new URLSearchParams({
+    language: 'en-US',
+    include_adult: 'false',
+    page: '1',
+  });
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value === undefined) return;
+
+    let finalKey = key;
+    if (key === 'vote_count_gte') finalKey = 'vote_count.gte';
+    if (key === 'vote_count_lte') finalKey = 'vote_count.lte';
+    if (key === 'vote_average_gte') finalKey = 'vote_average.gte';
+    if (key === 'primary_release_date_gte') finalKey = 'primary_release_date.gte';
+    if (key === 'primary_release_date_lte') finalKey = 'primary_release_date.lte';
+    
+    urlParams.set(finalKey, String(value));
+  });
+
+  const res = await fetch(`https://api.themoviedb.org/3/discover/movie?${urlParams.toString()}`, {
+    headers: {
+      Authorization: `Bearer ${TMDB_TOKEN}`,
+      accept: 'application/json',
+    },
+    next: { revalidate: 3600 }
+  });
+
   return res.json();
 }

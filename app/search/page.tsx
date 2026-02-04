@@ -11,7 +11,7 @@ import { SearchResult } from '@/lib/types';
 
 type FilterType = 'all' | 'movie' | 'person' | 'tv';
 
-// --- 1. The Logic Component (Where useSearchParams lives) ---
+
 const SearchResults = () => {
     const searchParams = useSearchParams();
     const searchTerm = searchParams.get('q') || '';

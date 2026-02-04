@@ -1,0 +1,49 @@
+[
+  {
+    "id": "best-of-2020s",
+    "title": "Best of the 2020s",
+    "description": "The definitive collection of the decade's highest-rated films so far.",
+    "params": { "primary_release_date_gte": "2020-01-01", "sort_by": "vote_average.desc", "vote_count_gte": 300 },
+    "color": "from-blue-600 to-blue-900"
+  },
+  {
+    "id": "atmospheric-horror",
+    "title": "Atmospheric Horror",
+    "description": "Slow-burn chills and dread-inducing cinema. Lights off.",
+    "params": { "with_genres": "27", "sort_by": "vote_average.desc", "vote_count_gte": 200 },
+    "color": "from-red-600 to-red-900"
+  },
+  {
+    "id": "auteur-essentials",
+    "title": "Auteur Essentials",
+    "description": "Must-watch films from the world's most visionary directors.",
+    "params": { 
+        "sort_by": "vote_average.desc", 
+        "vote_count_gte": 1000, 
+        "without_genres": "16,10751"
+    },
+    "overrideParams": { "sort_by": "vote_average.desc", "vote_count_gte": 1000 },
+    "color": "from-purple-600 to-purple-900"
+  },
+  {
+    "id": "cult-classics",
+    "title": "Cult Classics",
+    "description": "Films that gained a dedicated following over time.",
+    "params": { "vote_average_gte": 7.0, "vote_count_lte": 3000, "sort_by": "vote_count.desc" },
+    "color": "from-yellow-600 to-yellow-900"
+  },
+  {
+    "id": "anime-masterpieces",
+    "title": "Anime Masterpieces",
+    "description": "The gold standard of Japanese animation.",
+    "params": { "with_genres": "16", "with_original_language": "ja", "sort_by": "vote_average.desc", "vote_count_gte": 500 },
+    "color": "from-pink-600 to-pink-900"
+  },
+  {
+    "id": "sci-fi-visions",
+    "title": "Sci-Fi Visions",
+    "description": "Futuristic worlds and mind-bending concepts.",
+    "params": { "with_genres": "878", "sort_by": "vote_average.desc", "vote_count_gte": 500 },
+    "color": "from-cyan-600 to-cyan-900"
+  }
+]

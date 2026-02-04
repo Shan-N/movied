@@ -1,7 +1,9 @@
 "use client";
 import { useRef } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { gsap } from "gsap";
+import { Star } from "lucide-react";
 
 interface Movie {
   id: number;
@@ -11,17 +13,22 @@ interface Movie {
 }
 
 export const MovieCard = ({ movie }: { movie: Movie }) => {
+  const router = useRouter();
   const cardRef = useRef<HTMLDivElement>(null);
   const borderRef = useRef<HTMLDivElement>(null);
 
   const handleMouseEnter = () => {
     gsap.to(cardRef.current, { 
       scale: 1.05, 
-      y: -4, 
+      y: -5, 
       duration: 0.3, 
       ease: "power2.out" 
     });
-    gsap.to(borderRef.current, { opacity: 1, scale: 1.05, duration: 0.2 });
+    gsap.to(borderRef.current, { 
+      opacity: 1, 
+      scale: 1.05, 
+      duration: 0.2 
+    });
   };
 
   const handleMouseLeave = () => {
@@ -31,19 +38,20 @@ export const MovieCard = ({ movie }: { movie: Movie }) => {
       duration: 0.3, 
       ease: "power2.inOut" 
     });
-    gsap.to(borderRef.current, { opacity: 0, duration: 0.2 });
+    gsap.to(borderRef.current, { opacity: 0, scale: 1, duration: 0.2 });
   };
 
   return (
     <div 
-      className="relative cursor-pointer"
+      
+      className="relative cursor-pointer group"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={() => window.location.href = `/movie/${movie.id}`}
+      onClick={() => router.push(`/movie/${movie.id}`)}
     >
       <div 
         ref={cardRef}
-        className="relative aspect-2/3 w-full bg-[#2c3440] rounded-md overflow-hidden border border-black/20 dark:border-white/10 shadow-lg"
+        className="relative aspect-2/3 w-full bg-[#2c3440] rounded-md overflow-hidden shadow-lg transition-shadow duration-300"
       >
         {movie.posterPath ? (
           <Image
@@ -63,20 +71,21 @@ export const MovieCard = ({ movie }: { movie: Movie }) => {
           </div>
         )}
 
-        {/* Rating Star Overlay */}
-        {movie.rating && movie.rating > 0 && (
-          <div className="absolute bottom-2 left-0 right-0 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-             <div className="bg-black/80 px-2 py-0.5 rounded flex items-center gap-1">
-                <span className="text-brand-green text-[10px] font-bold">{movie.rating.toFixed(1)}</span>
+        {typeof movie.rating === 'number' && movie.rating > 0 && (
+          <div className="absolute inset-x-0 bottom-0 p-4 bg-linear-to-t from-black/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center z-10">
+             <div className="flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 shadow-xl transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                <Star size={12} className="text-brand-green fill-brand-green" />
+                <span className="text-white text-xs font-bold tracking-wide">
+                  {movie.rating.toFixed(1)}
+                </span>
              </div>
           </div>
         )}
       </div>
 
-      {/* High-quality Border Overlay */}
       <div 
         ref={borderRef}
-        className="absolute -inset-0.5 border-2 border-brand-green rounded-md opacity-0 pointer-events-none z-20 transition-opacity"
+        className="absolute -inset-1 border-2 border-brand-green rounded-lg opacity-0 pointer-events-none z-20"
       />
     </div>
   );
